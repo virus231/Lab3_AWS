@@ -1,0 +1,8 @@
+aws ec2 create-security-group --group-name Lab3_PR --description "instance"
+aws ec2 authorize-security-group-ingress --group-id sg-08d0c173b4cfdcb13 --protocol tcp --port 22 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-id sg-08d0c173b4cfdcb13 --protocol tcp --port 80 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-id sg-08d0c173b4cfdcb13 --protocol tcp --port 443 --cidr 0.0.0.0/0
+aws ec2 run-instances --image-id ami-04d29b6f966df1537 --count 1 --instance-type t2.micro --key-name Virus --associate-public-ip-address --user-data UserData.txt --security-group-ids sg-0124d41f860631659 ec2 create-tags --resources i-0321f4fbb2cef6249 --tags Key=Name,Value=Instance
+aws ec2 create-tags --resources i-0ca774b15628e99f3 --tags Key=Role,Value=WebServer
+aws ec2 create-image --instance-id i-0ca774b15628e99f3 --name "AMI_For_Lab_3"
+aws ec2 run-instances --image-id ami-0dfb9353dcf939353 --count 1 --instance-type t2.micro --key-name Virus --associate-public-ip-address --security-group-ids sg-0124d41f860631659
